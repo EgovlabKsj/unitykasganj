@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>राष्ट्रीय एकता दिवस प्रमाण पत्र</title>
-
-<!-- Baloo 2 font -->
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
-
-<!-- html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <style>
 body {
   margin: 0;
@@ -56,88 +43,22 @@ button:hover {
   display: none;
 }
 
+/* Certificate Number */
 #cert-number {
   position: absolute;
-  top: 20px;
-  right: 40px;
+  top: 28px;
+  right: 70px;
   font-size: 10px;
 }
 
+/* Adjusted text position — only in blank right area */
 #certificate-text {
   position: absolute;
-  top: 260px;
-  left: 140px;
-  right: 140px;
+  top: 290px;
+  left: 520px;      /* start after statue area */
+  width: 500px;     /* limited to right side */
   font-size: 18px;
-  line-height: 1.7;
+  line-height: 1.8;
   text-align: justify;
 }
 </style>
-</head>
-<body>
-
-<h2>राष्ट्रीय एकता दिवस प्रमाण पत्र जनरेटर</h2>
-
-<div id="form-area">
-  <input type="text" id="name-input" placeholder="अपना नाम दर्ज करें">
-  <button id="download-btn">प्रमाण पत्र डाउनलोड करें</button>
-</div>
-
-<div id="certificate-container">
-  <div id="cert-number">Certificate No: <span id="certId"></span></div>
-  <div id="certificate-text">
-    <p>
-      विकास खण्ड कासगंज में अध्ययनरत छात्र/छात्रा 
-      <b><span id="student-name">____</span></b> 
-      ने जनपद कासगंज में 31 अक्टूबर 2025 को “राष्ट्रीय एकता दिवस” के महत्व को समझ कर, आयोजित कार्यक्रमों में सक्रिय भागीदारी की है।
-      लौह पुरुष सरदार वल्लभभाई पटेल जी की 150वीं जयंती के अवसर पर आयोजित राष्ट्रीय एकता दिवस पर भारत की अखंडता, 
-      एकता और सौहार्द के उस अदम्य भाव को पुनः स्मरण करना है, जिसकी कल्पना सरदार पटेल ने एक सशक्त और एकजुट भारत के लिए की थी।<br><br>
-      आपकी सहभागिता राष्ट्र के प्रति समर्पण और एकता के आदर्शों को सशक्त बनाती है।
-    </p>
-  </div>
-</div>
-
-<script>
-document.getElementById('download-btn').addEventListener('click', async () => {
-  const name = document.getElementById('name-input').value.trim();
-  if (!name) {
-    alert('कृपया अपना नाम दर्ज करें');
-    return;
-  }
-
-  const certDiv = document.getElementById('certificate-container');
-  const studentName = document.getElementById('student-name');
-  const certId = document.getElementById('certId');
-
-  // Set name and certificate number
-  studentName.innerText = name;
-  const randomNum = Math.floor(100000 + Math.random() * 900000);
-  certId.innerText = "2025RFUKASGANJ/" + randomNum;
-
-  // Wait for background image to load before showing
-  await new Promise(resolve => {
-    const bgImg = new Image();
-    bgImg.src = '2.png';
-    bgImg.onload = resolve;
-    bgImg.onerror = () => {
-      alert("⚠️ Background image not found. Please place 2.png in same folder as this HTML file.");
-    };
-  });
-
-  certDiv.style.display = 'block';
-
-  // Delay to ensure rendering
-  setTimeout(() => {
-    html2canvas(certDiv, { scale: 3, useCORS: true }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = `${name}_EktaCertificate.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      certDiv.style.display = 'none'; // hide again after download
-    });
-  }, 1000);
-});
-</script>
-
-</body>
-</html>
