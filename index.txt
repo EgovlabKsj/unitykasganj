@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>राष्ट्रीय एकता दिवस प्रमाण पत्र</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+body{
+  font-family:'Baloo 2',cursive;
+  background:#f7f1e8;
+  text-align:center;
+  padding:20px;
+}
+#certificate{
+  position:relative;
+  width:1086px;
+  height:768px;
+  margin:auto;
+  background:url('2.png') center/cover no-repeat;
+  display:none;
+}
+#certNo{
+  position:absolute;top:20px;right:40px;font-size:10px;
+}
+#text{
+  position:absolute;top:260px;left:140px;right:140px;
+  font-size:18px;line-height:1.7;text-align:justify;
+}
+input,button{font-family:'Baloo 2',cursive;font-size:18px;padding:6px 12px;margin:8px;}
+button{background:#0a66c2;color:#fff;border:none;border-radius:6px;cursor:pointer;}
+button:hover{background:#084a93;}
+</style>
+</head>
+<body>
+
+<h2>राष्ट्रीय एकता दिवस प्रमाण पत्र जनरेटर</h2>
+<input id="name" type="text" placeholder="अपना नाम दर्ज करें" />
+<button id="btn">प्रमाण पत्र डाउनलोड करें</button>
+
+<div id="certificate">
+  <div id="certNo">Certificate No: <span id="no"></span></div>
+  <div id="text">
+    विकास खण्ड कासगंज में अध्ययनरत छात्र/छात्रा 
+    <b><span id="person">____</span></b> 
+    ने जनपद कासगंज में 31 अक्टूबर 2025 को “राष्ट्रीय एकता दिवस” के महत्व को समझ कर, आयोजित कार्यक्रमों में सक्रिय भागीदारी की है।
+    लौह पुरुष सरदार वल्लभभाई पटेल जी की 150वीं जयंती के अवसर पर आयोजित राष्ट्रीय एकता दिवस पर भारत की अखंडता, 
+    एकता और सौहार्द के उस अदम्य भाव को पुनः स्मरण करना है, जिसकी कल्पना सरदार पटेल ने एक सशक्त और एकजुट भारत के लिए की थी।<br><br>
+    आपकी सहभागिता राष्ट्र के प्रति समर्पण और एकता के आदर्शों को सशक्त बनाती है।
+  </div>
+</div>
+
+<script>
+document.getElementById('btn').onclick=async()=>{
+  const name=document.getElementById('name').value.trim();
+  if(!name){alert('कृपया अपना नाम दर्ज करें');return;}
+  // make sure background exists
+  const img=new Image();
+  img.src='2.png';
+  await img.decode().catch(()=>alert("❌ '2.png' नहीं मिला — सुनिश्चित करें कि यह HTML फाइल के साथ है"));
+  // fill data
+  const cert=document.getElementById('certificate');
+  document.getElementById('person').innerText=name;
+  document.getElementById('no').innerText="2025RFUKASGANJ/"+Math.floor(100000+Math.random()*900000);
+  cert.style.display='block';
+  // wait for render
+  setTimeout(()=>{
+    html2canvas(cert,{scale:2,useCORS:true}).then(canvas=>{
+      const a=document.createElement('a');
+      a.href=canvas.toDataURL('image/png');
+      a.download=name+'_EktaCertificate.png';
+      a.click();
+      cert.style.display='none';
+    });
+  },700);
+};
+</script>
+</body>
+</html>
